@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `#__locationfinder` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(60) NOT NULL,
+  `street` varchar(80) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `state` char(2) default NULL,
+  `postal_code` varchar(20) NOT NULL,
+  `country` varchar(30) NOT NULL,
+  `phone` varchar(255) default NULL,
+  `url` varchar(255) default NULL,
+  `email` varchar(255) default NULL,
+  `lat` float(10,6) NOT NULL,
+  `lng` float(10,6) NOT NULL,
+  `image` varchar(255) default NULL,
+  `thumbnail` varchar(255) default NULL,
+  `description` text,
+  `published` tinyint(1) default NULL,
+  `checked_out` tinyint(1) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8

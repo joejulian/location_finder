@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+ <name>Location Finder</name>
+ <!-- The following elements are optional and free of formatting constraints -->
+ <creationDate>2009-12-22</creationDate>
+ <author>Joe Julian</author>
+ <authorEmail>joe@julianfamily.org</authorEmail>
+ <authorUrl>http://dev.julianfamily.org</authorUrl>
+ <copyright>Copyright (c) 2009 Joe Julian</copyright>
+ <license>This is free software. This version may have been modified pursuant
+ to the GNU General Public License, and as distributed it includes or
+ is derivative of works licensed under the GNU General Public License or
+ other free or open source software licenses.
+
+ See COPYRIGHT.php for copyright notices and details.</license>
+ <!--  The version string is recorded in the components table -->
+ <version>0.90</version>
+ <!-- The description is optional and defaults to the name -->
+ <description>The Location Finder component allows you to implement a 
+"nearest location" search utility that directly interfaces with Google Maps API v3.
+</description>
+ 
+ <!-- Site Main File Copy Section -->
+ <!-- Note the folder attribute: This attribute describes the folder
+      to copy FROM in the package to install therefore files copied
+      in this section are copied from /site/ in the package -->
+ <files folder="site">
+    <filename>locationfinder.php</filename>
+    <filename>views/location/tmpl/gmap-v3.js</filename>
+    <filename>views/location/tmpl/default.php</filename>
+    <filename>views/location/view.html.php</filename>
+    <filename>phpsqlsearch_genxml.php</filename>
+    <filename>controller.php</filename>
+ </files>
+ <images>
+    <filename>images/locationfinder/placeholder.jpg</filename>
+ </images>
+
+ <administration>
+  <menu>Location Finder</menu>
+  <files folder="admin">
+    <filename>models/locations.php</filename>
+    <filename>models/location.php</filename>
+    <filename>controllers/location.php</filename>
+    <filename>locationfinder.php</filename>
+    <filename>install.sql</filename>
+    <filename>views/location/tmpl/form-v3.js</filename>
+    <filename>views/location/tmpl/form.php</filename>
+    <filename>views/location/view.html.php</filename>
+    <filename>views/locations/tmpl/default.php</filename>
+    <filename>views/locations/view.html.php</filename>
+    <filename>controller.php</filename>
+    <filename>tables/location.php</filename>
+  </files>
+ </administration>
+
+ <install>
+  <sql>
+    <file charset="utf8" driver="mysql">install.sql</file>
+  </sql>
+ </install>
+
+</install>
+
