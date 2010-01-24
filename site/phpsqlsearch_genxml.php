@@ -96,6 +96,5 @@ while ($row = @mysql_fetch_assoc($result)){
   $newnode->setAttribute("distance", $row['distance']);
 }
 
-echo $dom->saveXML();
+echo $dom->saveXML($dom->documentElement);
 ?>
-
