@@ -19,6 +19,15 @@
 */
 
 require("../../configuration.php");
+// Fixes the encoding to uf8
+function fixEncoding($in_str)
+{
+  $cur_encoding = mb_detect_encoding($in_str) ;
+  if($cur_encoding == "UTF-8" && mb_check_encoding($in_str,"UTF-8"))
+    return $in_str;
+  else
+    return utf8_encode($in_str);
+} // fixEncoding 
 
 /*
 $_GET['lat'] = 47;
@@ -82,18 +91,18 @@ header("Content-type: text/xml");
 while ($row = @mysql_fetch_assoc($result)){
   $node = $dom->createElement("marker");
   $newnode = $parnode->appendChild($node);
-  $newnode->setAttribute("name", $row['name']);
-  $newnode->setAttribute("address", $row['address']);
-  $newnode->setAttribute("addr1",$row['addr1']);
-  $newnode->setAttribute("addr2",$row['addr2']);
-  $newnode->setAttribute("country",$row['country']);
-  $newnode->setAttribute("phone",$row['phone']);
-  $newnode->setAttribute("email",$row['email']);
-  $newnode->setAttribute("url",$row['url']);
-  $newnode->setAttribute("desc",$row['description']);
-  $newnode->setAttribute("lat", $row['lat']);
-  $newnode->setAttribute("lng", $row['lng']);
-  $newnode->setAttribute("distance", $row['distance']);
+  $newnode->setAttribute("name", fixEncoding($row['name']));
+  $newnode->setAttribute("address", fixEncoding($row['address']));
+  $newnode->setAttribute("addr1",fixEncoding($row['addr1']));
+  $newnode->setAttribute("addr2",fixEncoding($row['addr2']));
+  $newnode->setAttribute("country",fixEncoding($row['country']));
+  $newnode->setAttribute("phone",fixEncoding($row['phone']));
+  $newnode->setAttribute("email",fixEncoding($row['email']));
+  $newnode->setAttribute("url",fixEncoding($row['url']));
+  $newnode->setAttribute("desc",fixEncoding($row['description']));
+  $newnode->setAttribute("lat", fixEncoding($row['lat']));
+  $newnode->setAttribute("lng", fixEncoding($row['lng']));
+  $newnode->setAttribute("distance", fixEncoding($row['distance']));
 }
 
 echo $dom->saveXML($dom->documentElement);
