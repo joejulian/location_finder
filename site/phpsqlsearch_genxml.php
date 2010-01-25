@@ -29,12 +29,6 @@ function fixEncoding($in_str)
     return utf8_encode($in_str);
 } // fixEncoding 
 
-/*
-$_GET['lat'] = 47;
-$_GET['lng'] = -122;
-$_GET['radius'] = 5000;
-*/
-
 $config = new JConfig();
 
 // Get parameters from URL
