@@ -34,7 +34,7 @@ $center_lng = $_GET["lng"];
 $radius = $_GET["radius"];
 
 // Start XML file, create parent node
-$dom = new DOMDocument("1.0");
+$dom = new DOMDocument('<?xml version="1.0" encoding="utf-8"?><root/>');
 $node = $dom->createElement("markers");
 $parnode = $dom->appendChild($node);
 

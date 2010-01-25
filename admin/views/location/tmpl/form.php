@@ -24,7 +24,7 @@ $document = &JFactory::getDocument();
 $editor   = &JFactory::getEditor();
 
 $document->addScript('http://maps.google.com/maps/api/js?sensor=false');
-$document->addScript( 'administrator/components/com_locationfinder/views/location/tmpl/form-v3.js');
+$document->addScript( JURI::root(true) . '/administrator/components/com_locationfinder/views/location/tmpl/form-v3.js');
 ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <div class="col100">

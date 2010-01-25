@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted Access'); // do not run without Joomla
 
 $document = & JFactory :: getDocument();
 $document->addScript('http://maps.google.com/maps/api/js?sensor=false');
-$document->addScript('components/com_locationfinder/views/location/tmpl/gmap-v3.js');
+$document->addScript( JURI::root(true) . '/components/com_locationfinder/views/location/tmpl/gmap-v3.js');
 
 JHTML :: _('behavior.mootools');
 
