@@ -47,15 +47,15 @@ $js = "
 
 $document->addScriptDeclaration($js);
 ?>
-<label for="addressInput">Address:</label> <input type="text" id="addressInput" size="30" onkeypress="return searchLocationsOnEnter(this,event)"/>
-<label for="radiusSelect">Radius:</label> <select id="radiusSelect" onkeypress="return searchLocationsOnEnter(this,event)">
+<label for="addressInput">Address:</label> <input type="text" id="addressInput" size="30" onkeypress="return searchLocationsOnEnter(this,event,'<?php echo JURI::root(true);?>')"/>
+<label for="radiusSelect">Radius:</label> <select id="radiusSelect" onkeypress="return searchLocationsOnEnter(this,event,'<?php echo JURI::root(true);?>')">
     <option value="5">5</option>
     <option value="25" selected>25</option>
     <option value="100">100</option>
     <option value="200">200</option>
 </select>
 
-<input type="button" onclick="searchLocations()" value="Search" />
+<input type="button" onclick="searchLocations('<?php echo JURI::root(true);?>')" value="Search" />
 <br/><br/>
 <table width="100%">
     <tr>

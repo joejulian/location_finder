@@ -61,7 +61,7 @@ function GMapInit() {
 	 */
 }
 
-function searchLocationsOnEnter(myfield, e) {
+function searchLocationsOnEnter(myfield, e, pageroot) {
 	var keycode;
 	if (window.event)
 		keycode = window.event.keyCode;
@@ -71,29 +71,29 @@ function searchLocationsOnEnter(myfield, e) {
 		return true;
 
 	if (keycode == 13) {
-		searchLocations();
+		searchLocations(pageroot);
 		return false;
 	} else {
 		return true;
 	}
 }
 
-function searchLocations() {
+function searchLocations(pageroot) {
 	var address = document.getElementById('addressInput').value;
 	geocoder.geocode( {
 		'address' : address
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-			searchLocationsNear(address, results[0].geometry.location);
+			searchLocationsNear(address, results[0].geometry.location, pageroot);
 		} else {
 			alert(status);
 		}
 	});
 }
 
-function searchLocationsNear(saddr, center) {
+function searchLocationsNear(saddr, center, pageroot) {
 	var radius = document.getElementById('radiusSelect').value;
-	var searchUrl = 'components/com_locationfinder/phpsqlsearch_genxml.php?lat='
+	var searchUrl = pageroot + '/components/com_locationfinder/phpsqlsearch_genxml.php?lat='
 			+ center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
 	map.clearMarkers();
 	LoadXML(searchUrl, 'markers', function(element, xml) {
