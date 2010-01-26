@@ -121,7 +121,7 @@ while ($row = @mysql_fetch_assoc($result)){
 }
 
 if( ( PHP_VERSION_ID < 50000 ) ) {
-    $xmlfile = $doc->dump_mem();
+    $xmlfile = $dom->dump_mem();
     echo $xmlfile;
 } else {
     echo $dom->saveXML($dom->documentElement);
