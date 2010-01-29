@@ -17,28 +17,22 @@
 * other free or open source software licenses.
 * See COPYRIGHT.php for copyright notices and details.
 */
-
 header("Content-type: text/xml");
-// ini_set("display_errors", false);
 
-require("../../configuration.php");
-
-// Fixes the encoding to uf8
-function fixEncoding($in_str)
-{
-  $cur_encoding = mb_detect_encoding($in_str) ;
-  if($cur_encoding == "UTF-8" && mb_check_encoding($in_str,"UTF-8"))
-    return $in_str;
-  else
-    return utf8_encode($in_str);
-} // fixEncoding 
-
-$config = new JConfig();
+define( '_JEXEC', 1 );
+define( 'DS', DIRECTORY_SEPARATOR );
+define('JPATH_BASE', dirname(__FILE__).DS.'..'.DS.'..' );
+require_once ( JPATH_BASE .DS.'includes'.DS.'defines.php' );
+require_once ( JPATH_BASE .DS.'includes'.DS.'framework.php' );
+$mainframe =& JFactory::getApplication('site');
+$mainframe->initialise();
+JPluginHelper::importPlugin('system');
+$_SERVER['SCRIPT_NAME'] = dirname($_SERVER['SCRIPT_NAME']).DS.'..'.DS.'..'.DS.'dummy.php'; //hack to make JURI::base be the actual base for sef
 
 // Get parameters from URL
-$center_lat = $_GET["lat"];
-$center_lng = $_GET["lng"];
-$radius = $_GET["radius"];
+$center_lat = JRequest::getVar('lat');
+$center_lng = JRequest::getVar('lng');
+$radius = JRequest::getVar('radius');
 
 // PHP_VERSION_ID is available as of PHP 5.2.7, if our version is lower than that, then emulate it
 if (!defined('PHP_VERSION_ID')) {
@@ -61,49 +55,38 @@ if( ( 40200 <= PHP_VERSION_ID ) && ( PHP_VERSION_ID < 50000 ) ) {
 } else {
     die("<b>Error: </b>PHP Version not supported");
 }
+
+// Start the parent xml node
 $node = $dom->$dom_createelement_model("markers");
 $parnode = $dom->$dom_appendchild_model($node);
 
-// Opens a connection to a mySQL server
-$connection=mysql_connect ($config->host, $config->user, $config->password);
-if (!$connection) {
-  die("Not connected : " . mysql_error());
-}
-
-// Set the active mySQL database
-$db_selected = mysql_select_db($config->db, $connection);
-if (!$db_selected) {
-  die ("Can\'t use db : " . mysql_error());
-}
-
 // Search the rows in the dbprefix.locationfinder table
 $query = sprintf("SELECT CONCAT_WS(' ',street,city,state,postal_code,country) AS address," .
-		         "       name, " .
-		         "       street as addr1, " .
-		         "       CONCAT(city, ', ', state, ' ', postal_code) as addr2, " .
-		         "       country, " .
-		         "       lat, " .
-		         "       lng, " .
-		         "       description," .
-		         "       phone," .
-		         "       email," .
-		         "       url," .
-		         "       ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance " .
-		         "FROM " . $config->dbprefix . "locationfinder " .
-				 "HAVING distance < '%s' " .
-				 "ORDER BY distance LIMIT 0 , 20",
-                 mysql_real_escape_string($center_lat),
-                 mysql_real_escape_string($center_lng),
-                 mysql_real_escape_string($center_lat),
-                 mysql_real_escape_string($radius));
-$result = mysql_query($query);
+	"       name, " .
+	"       street as addr1, " .
+	"       CONCAT(city, ', ', state, ' ', postal_code) as addr2, " .
+	"       country, " .
+	"       lat, " .
+	"       lng, " .
+	"       description," .
+	"       phone," .
+	"       email," .
+	"       url," .
+	"       ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance " .
+	"FROM #__locationfinder " .
+	"HAVING distance < '%s' " .
+	"ORDER BY distance LIMIT 0 , 20",
+	$center_lat,
+	$center_lng,
+	$center_lat,
+	$radius);
 
-if (!$result) {
-  die("Invalid query: " . mysql_error());
-}
+$db =& JFactory::getDBO();
+$db->setQuery($query);
+$rows = $db->loadAssocList();
 
 // Iterate through the rows, adding XML nodes for each
-while ($row = @mysql_fetch_assoc($result)){
+foreach ($rows as $row){
   $node = $dom->$dom_createelement_model("marker");
   $newnode = $parnode->$dom_appendchild_model($node);
   $newnode->$dom_setattribute_model("name", fixEncoding($row['name']));
@@ -114,7 +97,12 @@ while ($row = @mysql_fetch_assoc($result)){
   $newnode->$dom_setattribute_model("phone",fixEncoding($row['phone']));
   $newnode->$dom_setattribute_model("email",fixEncoding($row['email']));
   $newnode->$dom_setattribute_model("url",fixEncoding($row['url']));
-  $newnode->$dom_setattribute_model("desc",fixEncoding($row['description']));
+  // Set the body to the description
+  JResponse::setBody($row['description']);
+  // Run the system plugins on the body
+  $mainframe->triggerEvent('onAfterRender');
+  // Use the body after the plugins have been run on it for the marker description
+  $newnode->$dom_setattribute_model("desc",fixEncoding(JResponse::getBody()));
   $newnode->$dom_setattribute_model("lat", fixEncoding($row['lat']));
   $newnode->$dom_setattribute_model("lng", fixEncoding($row['lng']));
   $newnode->$dom_setattribute_model("distance", fixEncoding($row['distance']));
@@ -126,4 +114,15 @@ if( ( PHP_VERSION_ID < 50000 ) ) {
 } else {
     echo $dom->saveXML($dom->documentElement);
 }
+
+
+// Fixes the encoding to uf8
+function fixEncoding($in_str)
+{
+  $cur_encoding = mb_detect_encoding($in_str) ;
+  if($cur_encoding == "UTF-8" && mb_check_encoding($in_str,"UTF-8"))
+    return $in_str;
+  else
+    return utf8_encode($in_str);
+} // fixEncoding 
 ?>
