@@ -8,8 +8,8 @@
 *
 * Joomla 1.5, Google Maps API v3
 *
-* Copyright (c) 2009, Joe Julian
-*                     joe@julianfamily.org
+* Copyright (c) 2009,2010  Joe Julian
+*                          joe@julianfamily.org
 *
 * This is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -135,20 +135,21 @@ function createMarker(saddr, point, xml) {
 	var email = xml.getAttribute('email');
 	var desc = xml.getAttribute('desc');
 	var address = xml.getAttribute('address');
-	var html = '<div style="float:left; margin-right: 10px;">'
-            + ( url ? '<a href="' + url + '" target="_blank">' : '')
-            + '<b>' + name + '</b>' 
-            + ( url ? '</a>' : '' )
+	var html = '<div class="marker"><div class="left">'
+            + ( url ? '<div class="name"><a href="' + url + '" target="_blank">' : '')
+            + name
+            + ( url ? '</a></div>' : '' )
             + addline(addr1)
             + addline(addr2) 
             + addline(country)
-            + ( phone ? '<br/><a href="tel:' + phone + '">' + phone + '</a>' : '')
-            + ( email ? '<br/><a href="mailto:' + email + '">' + email + '</a>' : '')
-            + '<br/><br/><a href="http://maps.google.com/maps?saddr=' + escape(saddr) 
+            + ( phone ? '<div class="phone"><a href="tel:' + phone + '">' + phone + '</a></div>' : '')
+            + ( email ? '<div class="email"><a href="mailto:' + email + '">' + email + '</a></div>' : '')
+            + '<div class="directions"><a href="http://maps.google.com/maps?saddr=' + escape(saddr) 
             + '&amp;daddr=' + escape(address) + '" target="_blank">'
-            + '<span style="color:green">Get Driving Directions</span></a>'
-            + '</div>'
-            + ( desc ? '<div style="margin: 00  6px;">' + desc + '</div>' : '');
+            + 'Get Driving Directions</a>'
+            + '</div></div><div class="right">'
+            + ( desc ? '<div class="description">' + desc + '</div>' : '')
+            + '</div></div>';
 	var marker = new google.maps.Marker( {
 		position : point,
 		map : map,
@@ -189,17 +190,16 @@ function createSidebarEntry(marker, xml) {
                  + ( phone ? '<br/><a href="tel:' + phone + '">' + phone + '</a>' : '')
                  + ( email ? '<br/><a href="mailto:' + email + '">' + email + '</a>' : '')
                  + ( url ? '<br/><a href="' + url + '" target="_blank">' + url + '</a>' : '');
+	div.className = 'sidebar mouseout';
 	div.innerHTML = html;
-	div.style.cursor = 'pointer';
-	div.style.marginBottom = '5px';
 	google.maps.event.addDomListener(div, 'click', function() {
 		google.maps.event.trigger(marker, 'click');
 	});
 	google.maps.event.addDomListener(div, 'mouseover', function() {
-		div.style.backgroundColor = '#eee';
+		div.className = 'sidebar mouseover';
 	});
 	google.maps.event.addDomListener(div, 'mouseout', function() {
-		div.style.backgroundColor = '#fff';
+		div.className = 'sidebar mouseout';
 	});
 	return div;
 }
@@ -237,7 +237,7 @@ function LoadXML(url, element, runfunc) {
 }
 
 function addline(st) {
-    return ( st ? '<br/>' + st : '');
+    return ( st ? '<div>' + st + '</div>' : '');
 }
 
 // ]]>

@@ -1,0 +1,76 @@
+/**
+*
+* Location Finder
+*
+* Location finder is a component for Joomla which integrates a location table 
+* with Google Maps for finding the nearest location.
+*
+* Joomla 1.5, Google Maps API v3
+*
+* Copyright (c) 2009,2010  Joe Julian
+*                          joe@julianfamily.org
+*
+* This is free software. This version may have been modified pursuant
+* to the GNU General Public License, and as distributed it includes or
+* is derivative of works licensed under the GNU General Public License or
+* other free or open source software licenses.
+* See COPYRIGHT.php for copyright notices and details.
+*/
+
+.locationfinder {
+}
+
+.locatiofinder label {
+}
+
+. locationfinder input {
+}
+
+#GMap {
+	overflow:hidden; 
+	width:100%; 
+	height:450px;
+}
+
+#GMap .marker {
+	margin-right: 10px;
+}
+
+#GMap .marker .left {
+	float: left; 
+}
+
+#GMap .marker .right {
+}
+
+#GMap .marker.name.a {
+	font-weight: bold;
+}
+
+#GMap .marker.phone, #GMap .marker .email {
+}
+
+#GMap .marker .directions {
+	color: green;
+}
+
+#GMap .marker .description {
+	margin: 0 6px;
+}
+
+#GMsidebar {
+	overflow: auto; 
+	height: 400px; 
+	font-size: 11px; 
+	color: #fff;
+	cursor: pointer;
+	margin-bottom: 5px;
+}
+
+#GMsidebar .mouseover {
+	background-color: #eee;
+}
+
+#GMsidebar .mouseout {
+	background-color: #fff;
+}

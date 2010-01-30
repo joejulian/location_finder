@@ -6,7 +6,7 @@
  <author>Joe Julian</author>
  <authorEmail>joe@julianfamily.org</authorEmail>
  <authorUrl>http://joejulian.name</authorUrl>
- <copyright>Copyright (c) 2009 Joe Julian</copyright>
+ <copyright>Copyright (c) 2009,2010 Joe Julian</copyright>
  <license>This is free software. This version may have been modified pursuant
  to the GNU General Public License, and as distributed it includes or
  is derivative of works licensed under the GNU General Public License or
@@ -14,7 +14,7 @@
 
  See COPYRIGHT.php for copyright notices and details.</license>
  <!--  The version string is recorded in the components table -->
- <version>0.9.2rc1</version>
+ <version>0.9.2rc2</version>
  <!-- The description is optional and defaults to the name -->
  <description>The Location Finder component allows you to implement a 
 "nearest location" search utility that directly interfaces with Google Maps API v3.
