@@ -27,6 +27,7 @@
  <files folder="site">
     <filename>locationfinder.php</filename>
     <filename>views/location/tmpl/gmap-v3.js</filename>
+    <filename>views/location/tmpl/gmap-v3.css</filename>
     <filename>views/location/tmpl/default.php</filename>
     <filename>views/location/view.html.php</filename>
     <filename>phpsqlsearch_genxml.php</filename>
