@@ -26,7 +26,7 @@ class LocationsViewLocations extends JView
 {
 	function display( $tpl = null )
 	{
-		JToolBarHelper::title( JText::_( 'Location Manager' ), 'generic.png' );
+		JToolBarHelper::title( JText::_( 'Location Finder' ), 'generic.png' );
 		JToolBarHelper::deleteList();
 		JToolBarHelper::editListX();
 		JToolBarHelper::addNewX();
