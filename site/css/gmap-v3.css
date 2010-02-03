@@ -23,7 +23,9 @@
 .locatiofinder label {
 }
 
-. locationfinder input {
+.locationfinder input {
+	color: #000;
+	background-color: #FFF;
 }
 
 #GMap {
