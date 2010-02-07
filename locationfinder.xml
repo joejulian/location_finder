@@ -14,7 +14,7 @@
 
  See COPYRIGHT.php for copyright notices and details.</license>
  <!--  The version string is recorded in the components table -->
- <version>0.9.2</version>
+ <version>0.9.3</version>
  <!-- The description is optional and defaults to the name -->
  <description>The Location Finder component allows you to implement a 
 "nearest location" search utility that directly interfaces with Google Maps API v3.
@@ -27,7 +27,7 @@
  <files folder="site">
     <filename>locationfinder.php</filename>
     <filename>views/location/tmpl/gmap-v3.js</filename>
-    <filename>views/css/gmap-v3.css</filename>
+    <filename>css/gmap-v3.css</filename>
     <filename>views/location/tmpl/default.php</filename>
     <filename>views/location/view.html.php</filename>
     <filename>phpsqlsearch_genxml.php</filename>
