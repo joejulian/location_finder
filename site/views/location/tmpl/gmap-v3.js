@@ -41,7 +41,9 @@ var geocoder;
 var lastinfo;
 
 function GMapInit() {
-	var latlng = new google.maps.LatLng(47.570620, -122.323836);
+        var latlng = new google.maps.LatLng(
+            document.getElementById('StartLat').value, 
+            document.getElementById('StartLng').value);
 	geocoder = new google.maps.Geocoder();
 	var myOptions = {
 		zoom : 9,

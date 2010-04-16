@@ -59,6 +59,8 @@ $document->addScriptDeclaration($js);
 
 	<input type="button" onclick="searchLocations('<?php echo JURI::root(true);?>')" value="Search" />
 	<input type="hidden" id="measure" value="<?php echo $this->params->get('measure'); ?>" />
+	<input type="hidden" id="StartLat" value="<?php echo $this->params->get('lat'); ?>" />
+	<input type="hidden" id="StartLng" value="<?php echo $this->params->get('lng'); ?>" />
 	<br/><br/>
 	<table width="100%">
 	    <tr>
