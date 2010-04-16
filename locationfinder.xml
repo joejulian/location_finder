@@ -14,7 +14,7 @@
 
  See COPYRIGHT.php for copyright notices and details.</license>
  <!--  The version string is recorded in the components table -->
- <version>0.9.4</version>
+ <version>1.0.0dev20</version>
  <!-- The description is optional and defaults to the name -->
  <description>The Location Finder component allows you to implement a 
 "nearest location" search utility that directly interfaces with Google Maps API v3.
@@ -54,6 +54,13 @@
     <filename>tables/location.php</filename>
   </files>
  </administration>
+
+ <params>
+     <param name="measure" type="list" default="km" label="Unit of Measure">
+         <option value="km">Km</option>
+         <option value="miles">Miles</option>
+     </param>
+ </params>
 
  <install>
   <sql>

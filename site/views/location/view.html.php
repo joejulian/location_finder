@@ -22,16 +22,12 @@ defined('_JEXEC') or die('Restricted Access'); // do not run without Joomla
  
 jimport( 'joomla.application.component.view');
  
-/**
- * HTML View class for the HelloWorld Component
- *
- * @package    HelloWorld
- */
- 
 class LocationViewLocation extends JView
 {
     function display($tpl = null)
     {
+        $params = &JComponentHelper::getParams( 'com_locationfinder' );
+	$this->assignRef('params', $params);
         parent::display($tpl);
     }
 }

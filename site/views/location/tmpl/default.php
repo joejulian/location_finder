@@ -55,9 +55,10 @@ $document->addScriptDeclaration($js);
 	    <option value="25" selected>25</option>
 	    <option value="100">100</option>
 	    <option value="200">200</option>
-	</select>
+	</select> <?php echo ucfirst($this->params->get('measure')); ?>&nbsp;
 
 	<input type="button" onclick="searchLocations('<?php echo JURI::root(true);?>')" value="Search" />
+	<input type="hidden" id="measure" value="<?php echo $this->params->get('measure'); ?>" />
 	<br/><br/>
 	<table width="100%">
 	    <tr>

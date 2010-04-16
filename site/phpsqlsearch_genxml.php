@@ -35,6 +35,7 @@ $_SERVER['SCRIPT_NAME'] = dirname($_SERVER['SCRIPT_NAME']).DS.'..'.DS.'..'.DS.'d
 $center_lat = JRequest::getVar('lat');
 $center_lng = JRequest::getVar('lng');
 $radius = JRequest::getVar('radius');
+$measure = JRequest::getVar('measure');
 
 // PHP_VERSION_ID is available as of PHP 5.2.7, if our version is lower than that, then emulate it
 if (!defined('PHP_VERSION_ID')) {
@@ -74,10 +75,11 @@ $query = sprintf("SELECT CONCAT_WS(' ',street,city,state,postal_code,country) AS
 	"       phone," .
 	"       email," .
 	"       url," .
-	"       ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance " .
+	"       ( %d * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance " .
 	"FROM #__locationfinder " .
 	"HAVING distance < '%s' " .
 	"ORDER BY distance LIMIT 0 , 20",
+	($measure == 'km' ? 6371 : 3959),
 	$center_lat,
 	$center_lng,
 	$center_lat,
@@ -108,6 +110,7 @@ foreach ($rows as $row){
   $newnode->$dom_setattribute_model("lat", fixEncoding($row['lat']));
   $newnode->$dom_setattribute_model("lng", fixEncoding($row['lng']));
   $newnode->$dom_setattribute_model("distance", fixEncoding($row['distance']));
+  $newnode->$dom_setattribute_model("measure", fixEncoding($measure));
 }
 
 if( ( PHP_VERSION_ID < 50000 ) ) {

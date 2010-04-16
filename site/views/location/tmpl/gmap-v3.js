@@ -93,8 +93,10 @@ function searchLocations(pageroot) {
 
 function searchLocationsNear(saddr, center, pageroot) {
 	var radius = document.getElementById('radiusSelect').value;
+	var measure = document.getElementById('measure').value;
 	var searchUrl = pageroot + '/components/com_locationfinder/phpsqlsearch_genxml.php?lat='
-			+ center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+			+ center.lat() + '&lng=' + center.lng() + '&radius=' + radius 
+                        + '&measure=' + measure;
 	map.clearMarkers();
 	LoadXML(searchUrl, 'markers', function(element, xml) {
 		var markers = xml[0].getElementsByTagName('marker');
@@ -180,9 +182,10 @@ function createSidebarEntry(marker, xml) {
 	var desc = xml.getAttribute('desc');
 	var distance = parseFloat(xml.getAttribute('distance'));
 	var address = xml.getAttribute('address');
+	var measure = xml.getAttribute('measure');
 
 	var div = document.createElement('div');
-	var html = distance.toFixed(1) + ' mile' + (distance >= 2 ? 's' : '')
+	var html = distance.toFixed(1) + ' ' + (measure == 'miles' ? 'mile' + (distance >= 2 ? 's' : '') : 'km')
                  + '<br/><b>' + name + '</b>' 
                  + addline(addr1)
                  + addline(addr2) 
