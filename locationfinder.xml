@@ -14,7 +14,7 @@
 
  See COPYRIGHT.php for copyright notices and details.</license>
  <!--  The version string is recorded in the components table -->
- <version>1.0.0dev21</version>
+ <version>1.0.0dev22</version>
  <!-- The description is optional and defaults to the name -->
  <description>The Location Finder component allows you to implement a 
 "nearest location" search utility that directly interfaces with Google Maps API v3.
@@ -62,6 +62,7 @@
      </param>
      <param name="lat" type="text" default="47.839218" label="Starting Latitude"/>
      <param name="lng" type="text" default="-122.324943" label="Starting Longitude"/>
+     <param name="instruction" type="textarea" default="" rows="6" cols="30" label="Instructions"/>
  </params>
 
  <install>

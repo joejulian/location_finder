@@ -28,6 +28,11 @@
 	background-color: #FFF;
 }
 
+.locationfinder div.instruction {
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
 #GMap {
 	overflow:hidden; 
 	width:100%; 

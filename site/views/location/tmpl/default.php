@@ -49,6 +49,11 @@ $js = "
 $document->addScriptDeclaration($js);
 ?>
 <div class="locationfinder">
+<?php
+if ($this->params->get('instruction') != "") {
+    echo '<div class="instruction">'.$this->params->get('instruction').'</div>';
+}
+?>
 	<label for="addressInput">Address:</label> <input type="text" id="addressInput" size="30" onkeypress="return searchLocationsOnEnter(this,event,'<?php echo JURI::root(true);?>')"/>
 	<label for="radiusSelect">Radius:</label> <select id="radiusSelect" onkeypress="return searchLocationsOnEnter(this,event,'<?php echo JURI::root(true);?>')">
 	    <option value="5">5</option>
